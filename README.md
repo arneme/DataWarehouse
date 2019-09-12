@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Data Warehouse project
 
 ## Table of Contents
@@ -34,4 +33,3 @@ In this project we will use Redshift to hold both the staging tables and the dim
 =======
 # Data Warehouse project
 Documentation is TBD
->>>>>>> 02dbbc0d1613f0b8f6c7bfc59c2f19d92e080a4b
