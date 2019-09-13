@@ -26,10 +26,10 @@ Copy the Redshift cluster configuration you specify when creating the Redshift c
 
 ### Run etl.py standalone
 The Python 3 installation must have psycopg2 packages installed (pip3 install psycopg2-binary)
-Run:
+Run:<br/><br/>
 _python3 etl.py_
 
-If you want to drop existing tables you can run the script like this:
+If you want to drop existing tables you can run the script like this:<br/><br/>
 _python3 etl.py --drop 1_
 
 If you intend to run it under Anaconda Jupyter Lab you will need to install the psycopg2 for your Anaconda installation (conda install -c anaconda psycopg)
