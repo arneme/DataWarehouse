@@ -23,24 +23,24 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 staging_events_table_create= ("""
 CREATE TABLE IF NOT EXISTS staging_events (
   event_id BIGINT IDENTITY(0,1) NOT NULL,
-  artist VARCHAR NOT NULL,
-  auth VARCHAR NOT NULL,
-  firstName VARCHAR NOT NULL,
-  gender VARCHAR NOT NULL,
-  itemInSession BIGINT NOT NULL,
-  lastName VARCHAR NOT NULL,
-  length DECIMAL(10,5) NOT NULL,
-  level VARCHAR NOT NULL,
+  artist VARCHAR,
+  auth VARCHAR,
+  firstName VARCHAR,
+  gender VARCHAR,
+  itemInSession BIGINT,
+  lastName VARCHAR,
+  length DECIMAL(10,5),
+  level VARCHAR,
   location VARCHAR,
   method VARCHAR,
   page VARCHAR,
   registration VARCHAR,
   sessionId INTEGER NOT NULL SORTKEY DISTKEY,
-  song VARCHAR NOT NULL,
+  song VARCHAR,
   status INTEGER,
-  ts BIGINT NOT NULL,
+  ts BIGINT,
   userAgent VARCHAR,
-  userId INTEGER NOT NULL
+  userId INTEGER
 );
 """)
 
@@ -138,7 +138,7 @@ songplay_table_insert = ("""
 INSERT INTO songplay_table (start_time, user_id, song_id, artist_id, level,
                             session_id, location, user_agent)
 SELECT DISTINCT TIMESTAMP 'epoch' + events.ts/1000 * INTERVAL '1 second' AS start_time,
-       events.userId AS user_id, events.level AS level, events.song_id AS song_id,
+       events.userId AS user_id, events.level AS level, songs.song_id AS song_id,
        songs.artist_id AS artist_id, events.sessionId AS session_id,
        events.location AS location, events.userAgent AS user_agent
 FROM staging_events AS events
@@ -156,7 +156,7 @@ WHERE events.page = 'NextSong';
 
 song_table_insert = ("""
 INSERT INTO song_table (song_id, artist_id, title, year, duration)
-SELECT  DISTINCT songs.songId AS song_id, songs.artist_id AS artist_id,
+SELECT  DISTINCT songs.song_id AS song_id, songs.artist_id AS artist_id,
         songs.title AS title, songs.year AS year, songs.duration AS duration
 FROM staging_songs AS songs;
 """)
@@ -164,7 +164,7 @@ FROM staging_songs AS songs;
 artist_table_insert = ("""
 INSERT INTO artist_table (artist_id, artist_name, location, latitude, longitude)
 SELECT  DISTINCT songs.artist_id AS artist_id, songs.artist_name AS artist_name,
-        songs.location AS location, songs.latitude AS latitude, songs.longitude AS longitude
+        songs.artist_location AS location, songs.artist_latitude AS latitude, songs.artist_longitude AS longitude
 FROM staging_songs AS songs;
 """)
 
