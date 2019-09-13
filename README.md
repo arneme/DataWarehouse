@@ -17,7 +17,7 @@ The script can be runned in several ways. I have been running it inside a Jupyte
 
 
 ### Setup a Redshift Cluster using your AWS Console
-It is  necessary to setup the Redshift cluster used by the etl.py script in order for the script to run without errors. This can be done either in the AWS Console or programatically. I did it in the AWS Console using the Quick Deploy option. It is also important to edit the default security group (that quick launch adds to the cluster) to allow access from the IP address the etl.py script is run on.
+It is  necessary to setup the Redshift cluster used by the etl.py script in order for the script to run without errors. This can be done either in the AWS Console or programatically. I did it in the AWS Console using the Quick Deploy option (4 nodes, dc2.large). It is also important to edit the default security group (that quick launch adds to the cluster) to allow access from the IP address the etl.py script is run on. It is a good idea to run the cluster in region us-west-2 since the S3 bucket with data is in the same region (to minimise network traffic).
 
 When creating the Redshift cluster I attached a role that allows the Redshift cluster to access S3 (read). This is necessary in order for the COPY SQL statements to work.
 
